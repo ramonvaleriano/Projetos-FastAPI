@@ -9,6 +9,24 @@ def home():
 
 
 @app.get('/profile')
-def home():
+def profile():
 
     return {'profile':'Ramon R. Valeriano'}
+
+
+@app.post('/profile')
+def signup():
+
+    return {'mensagem':'Perfil Enviado com Sucesso!'}
+
+
+@app.put('/profile')
+def atualizar():
+
+    return {'mensagem':'Perfil Atualizado com Sucesso!'}
+
+
+@app.delete('/profile')
+def deletar():
+
+    return {'mensage':'Perfil Deletado com Sucesso!'}
