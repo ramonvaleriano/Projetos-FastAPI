@@ -1,6 +1,7 @@
-from typing import List
+from typing import List, Optional
 from fastapi import FastAPI
 from pydantic import BaseModel
+from uuid import uuid4
 
 from typing import List
 
@@ -8,7 +9,7 @@ from typing import List
 app = FastAPI()
 
 class Animal(BaseModel):
-    id : int
+    id : Optional[int]
     nome : str
     idade : int
     sexo : str
@@ -23,6 +24,7 @@ def lista_animais():
 
 @app.post('/animais')
 def criar_animel(animal: Animal):
+    animal.id = uuid4()
     banco.append(animal)
 
     return {'mensagem':'Animal Adicionado'}
