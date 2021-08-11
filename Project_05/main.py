@@ -1,8 +1,28 @@
+from typing import List
 from fastapi import FastAPI
+from pydantic import BaseModel
+
+from typing import List
+
 
 app = FastAPI()
 
-@app.get('/')
-def home():
+class Animal(BaseModel):
+    id : int
+    nome : str
+    idade : int
+    sexo : str
+    cor : str
 
-    return {'msg':'Bem vindo a nossa aplicação.'}
+banco: List[Animal] = []
+
+@app.get('/animais')
+def lista_animais():
+
+    return banco
+
+@app.post('/animais')
+def criar_animel(animal: Animal):
+    banco.append(animal)
+
+    return {'mensagem':'Animal Adicionado'}
