@@ -1,4 +1,6 @@
-from fastapi import FastAPI
+from fastapi import FastAPI # Importando a classe que do fastAPI de fato
+from pydantic import BaseModel # Importando a classe modelo, para dar corpo
+                               # a requisição.
 
 app = FastAPI()
 
@@ -38,11 +40,14 @@ def area_retangulo(largura: int, altura: int = 2):
     area = largura * altura
     mensagem = f'A area do retangulo é {area}'
 
-    return {'mensagem':mensagem}
+    return {'mensagem':mensagem} 
+class Produto(BaseModel):
+    nome: str
+    preco: float
 
-@get.post('/produto')
-def produto():
+@app.post('/produto')
+def produto(produto: Produto):
 
-    mensagem = f'Olá, vamos por seus produtos aqui!'
+    mensagem = f'Produto {produto.nome} com preço R$ {produto.preco:.2f} foi cadastrado com Sucesso!'
 
     return {'mensagem':mensagem}
