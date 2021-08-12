@@ -1,12 +1,28 @@
 from typing import List, Optional
 from fastapi import FastAPI
 from pydantic import BaseModel
-from uuid import uuid4
 
-from typing import List
+from fastapi.middleware.cors import CORSMiddleware
+
+# Importando lib para gerar os IDs de forma automática
+from uuid import uuid4
 
 
 app = FastAPI()
+
+origins = [
+    'http://localhost:5500/',
+    'http://localhost:8000/',
+    'http://127.0.0.1:5500',
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 class Animal(BaseModel):
     id : Optional[str]
