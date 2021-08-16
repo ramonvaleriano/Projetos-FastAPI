@@ -37,6 +37,20 @@ class Produto(BaseModel):
         orm_mode = True
 
 
+class ProdutoSimples(BaseModel):
+    """
+        Model que caracteriza a saída do produto
+    """
+
+    id : Optional[str] = None
+    nome : str
+    preco : float
+
+    class Config:
+
+        orm_mode = True
+
+
 class Pedido(BaseModel):
     """
         Model que caracteriza o pedido
