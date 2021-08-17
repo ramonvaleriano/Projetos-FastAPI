@@ -1,27 +1,21 @@
-from fastapi import FastAPI, Depends, status
+from fastapi import FastAPI, Depends
 from sqlalchemy.orm import Session
-from typing import List
+from src.schemas.schemas import Produto
+from src.infra.sqlalchemy.config.database import get_db, criar_bd
+from src.infra.sqlalchemy.repositorios.produto import RepositorioProduto
 
-from schemas import schemas
-from infra.sqlalchemy.config.database import get_db, criar_banco_de_dados
-from infra.sqlalchemy.repositorios.produto import RespositorioProduto
-
-criar_banco_de_dados()
+criar_bd()
 
 app = FastAPI()
 
 
-@app.post('/produtos', status_code=status.HTTP_201_CREATED, response_model=schemas.ProdutoSimples)
-def adicionar_produto(produto: schemas.Produto, db: Session = Depends(get_db)):
-
-    produto_criado = RespositorioProduto(db).criar(produto)
-
+@app.post('/produtos')
+def criar_produto(produto: Produto, db: Session = Depends(get_db)):
+    produto_criado = RepositorioProduto(db).criar(produto)
     return produto_criado
 
 
-@app.get('/produtos', status_code=status.HTTP_200_OK, response_model=List[schemas.ProdutoSimples])
+@app.get('/produtos')
 def listar_produtos(db: Session = Depends(get_db)):
-
-    list_de_produto = RespositorioProduto(db).listar()
-    
-    return list_de_produto
+    produtos = RepositorioProduto(db).listar()
+    return produtos

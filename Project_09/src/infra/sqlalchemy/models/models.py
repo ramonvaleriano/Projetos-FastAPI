@@ -1,10 +1,8 @@
 from sqlalchemy import Column, Integer, String, Float, Boolean
-
-from infra.sqlalchemy.config.database import Base
+from src.infra.sqlalchemy.config.database import Base
 
 
 class Produto(Base):
-
     __tablename__ = 'produto'
 
     id = Column(Integer, primary_key=True, index=True)
@@ -12,3 +10,4 @@ class Produto(Base):
     detalhes = Column(String)
     preco = Column(Float)
     disponivel = Column(Boolean)
+    tamanhos = Column(String)
