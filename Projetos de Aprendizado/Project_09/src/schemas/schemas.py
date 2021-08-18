@@ -7,6 +7,10 @@ class Usuario(BaseModel):
     id: Optional[str] = None
     nome: str
     telefone: str
+    senha: str
+
+    class Config:
+        orm_mode = True
 
 
 class Produto(BaseModel):
@@ -15,6 +19,15 @@ class Produto(BaseModel):
     detalhes: str
     preco: float
     disponivel: bool = False
+
+    class Config:
+        orm_mode = True
+
+
+class ProdutoSimples(BaseModel):
+    id: Optional[str] = None
+    nome: str
+    preco: float
 
     class Config:
         orm_mode = True
